@@ -1,23 +1,14 @@
 # Table of Contents
 
--   [Running the app](#Running-the-app)
--   [The backend API](#The-backend-API)
-    -   [Authentication API](##Authentication-API)
-        -   [POST /auth/login](###Post-/auth/login)
-        -   [POST /auth/signup](###Post-/auth/signup)
-        -   [POST /auth/logout](###Post-/auth/logout)
-    -   [Posts API](##Posts-API)
-        -   [GET /posts](###GET-/posts)
-    -   [Favorites API](##Favorites-API)
-        -   [GET /me/favorites](###GET-/me/favorites)
-        -   [POST /me/favorites](###POST-/me/favorites)
-        -   [DELETE /me/favorites](###POST-/me/favorites)
--   [The frontend](#The-frontend)
-    -   [Home page](##Home-page)
-    -   [Favorites page](##Posts-page)
-        -   [/me/favorites](###/me/favorites)
-    -   [Authentication page](##Posts-page)
-        -   [/login](###/login)
+-   [Running the app](#running-the-app)
+-   [The backend API](#the-backend-api)
+    -   [Authentication API](#authentication-api)
+    -   [Posts API](#posts-api)
+    -   [Favorites API](#favorites-api)
+-   [The frontend](#the-frontend)
+    -   [Home page](#home-page)
+    -   [Favorites page](#posts-page)
+    -   [Authentication page](#posts-page)
 
 # Running the app
 
