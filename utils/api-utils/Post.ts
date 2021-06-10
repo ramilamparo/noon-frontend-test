@@ -18,7 +18,7 @@ export class Post implements PostData {
 	public description: string;
 	public favoriteCount: number;
 
-	private static BASE_URL = "/posts";
+	private static BASE_URL = "/api/posts";
 
 	private constructor(attributes: PostData) {
 		this.id = attributes.id;
@@ -44,13 +44,13 @@ export class Post implements PostData {
 	}
 
 	public static async getMyFavorites() {
-		const api = RestApi.createWithAuthToken("/me");
+		const api = RestApi.createWithAuthToken("/api/me");
 		const response = await api.get<PostData[]>("/favorites");
 		return response.data.map((post) => Post.fromObject(post));
 	}
 
 	public async addPostToMyFavorites() {
-		const api = RestApi.createWithAuthToken("/me");
+		const api = RestApi.createWithAuthToken("/api/me");
 		const response = await api.post<PostData>("/favorites", {
 			postId: this.id,
 		});
@@ -58,7 +58,7 @@ export class Post implements PostData {
 	}
 
 	public async removePostFromMyFavorites() {
-		const api = RestApi.createWithAuthToken(Post.BASE_URL);
+		const api = RestApi.createWithAuthToken("/api/me");
 		await api.delete<PostData>(`/favorites/${this.id}`);
 	}
 }
