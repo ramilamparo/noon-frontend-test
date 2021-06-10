@@ -7,8 +7,8 @@
     -   [Favorites API](#favorites-api)
 -   [The frontend](#the-frontend)
     -   [Home page](#home-page)
-    -   [Favorites page](#posts-page)
-    -   [Authentication page](#posts-page)
+    -   [Favorites page](#favorites-page)
+    -   [Authentication page](#authentication-page)
 
 # Running the app
 
