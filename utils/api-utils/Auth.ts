@@ -7,7 +7,7 @@ export interface AuthLoginData {
 
 export class Auth {
 	public static async login(username: string, password: string) {
-		const api = RestApi.create("/");
+		const api = RestApi.create();
 		const response = await api.post<AuthLoginData>("/login", {
 			username,
 			password,
@@ -20,7 +20,7 @@ export class Auth {
 	}
 
 	public static async signup(username: string, password: string) {
-		const api = RestApi.create("/");
+		const api = RestApi.create();
 		await api.post("/auth/signup", {
 			username,
 			password,

@@ -6,7 +6,7 @@ import { RestApiError } from "./RestApiError";
 export class RestApi {
 	private constructor(private baseUrl: string, private axios: AxiosInstance) {}
 
-	public static create(baseUrl: string) {
+	public static create(baseUrl: string = "") {
 		return new RestApi(baseUrl, axios.create());
 	}
 
