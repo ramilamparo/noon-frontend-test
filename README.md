@@ -1,8 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Table of Contents
 
-## Getting Started
+-   [Running the app](#Running-the-app)
+-   [The backend API](#The-backend-API)
+    -   [Authentication API](##Authentication-API)
+        -   [POST /auth/login](###Post-/auth/login)
+        -   [POST /auth/signup](###Post-/auth/signup)
+        -   [POST /auth/logout](###Post-/auth/logout)
+    -   [Posts API](##Posts-API)
+        -   [GET /posts](###GET-/posts)
+    -   [Favorites API](##Favorites-API)
+        -   [GET /me/favorites](###GET-/me/favorites)
+        -   [POST /me/favorites](###POST-/me/favorites)
+        -   [DELETE /me/favorites](###POST-/me/favorites)
+-   [The frontend](#The-frontend)
+    -   [Posts page](##Posts-page)
+        -   [/posts](###/posts)
+    -   [Favorites page](##Posts-page)
+        -   [/me/favorites](###/me/favorites)
+    -   [Authentication page](##Posts-page)
+        -   [/login](###/login)
 
-First, run the development server:
+# Running the app
+
+To run in development mode, use:
 
 ```bash
 npm run dev
@@ -10,25 +30,212 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# The backend API
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+The RESTful is integrated within the same codebase as NextJS.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Authentication API
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+When a user tries to login, the server responds with a session cookie which it will then use to identify the user in further requests.
 
-## Learn More
+### `POST /auth/login`
 
-To learn more about Next.js, take a look at the following resources:
+Once logged in, the server responds with a `set-cookie` header that will be used for identifying the user.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+User needs to be signed up first before logging in.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#### Body
 
-## Deploy on Vercel
+```json
+{
+	"username": "john.doe@example.com",
+	"password": "hunter2"
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### Response
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```json
+{
+	"success": true, // or false, if incorrect password.
+	"message": "Successfully logged in." // Additional details.
+}
+```
+
+### `POST /auth/signup`
+
+Signs up the user with the provided username, and password.
+
+`username` field not need to be an email.
+
+#### Body
+
+```json
+{
+	"username": "john.doe@example.com",
+	"password": "hunter2"
+}
+```
+
+#### Response
+
+```json
+{
+	"success": true, // or false, if something goes wrong...
+	"message": "Successfully signed up." // Additional details.
+}
+```
+
+### `POST /auth/logout`
+
+Invalidates the cookie server-side. Disabling access from `/me/*` routes.
+
+#### Body
+
+_NONE_
+
+#### Response
+
+```json
+{
+	"success": true, // or false, if something goes wrong...
+	"message": "Successfully logged out." // Additional details.
+}
+```
+
+## Posts API
+
+### `GET /posts`
+
+Get all posts.
+
+#### Response
+
+```json
+{
+	"success": true,
+	"message": "Successfully found posts.!",
+	"data": [
+		{
+			"id": 1,
+			"title": "Top 10 Anime Hairstyles",
+			"description": "Here are the top anime hairstyles according to...",
+			"favoriteCount": 398
+		}
+	]
+}
+```
+
+### `POST /posts`
+
+> **WARNING**: User needs to be signed in.
+
+Create a new post.
+
+#### Body
+
+```json
+{
+	"title": "Top 10 Anime Hairstyles",
+	"description": "Here are the top anime hairstyles according to..."
+}
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"message": "Successfully found posts!",
+	"data": {
+		"id": 1,
+		"title": "Top 10 Anime Hairstyles",
+		"description": "Here are the top anime hairstyles according to...",
+		"favoriteCount": 398
+	}
+}
+```
+
+## Favorites API
+
+### `GET /me/favorites`
+
+> **WARNING**: User needs to be signed in.
+
+Returns all favorited posts by the user.
+
+#### Response
+
+```json
+{
+	"success": true,
+	"message": "Successfully found posts.!",
+	"data": [
+		{
+			"title": "Top 10 Anime Hairstyles",
+			"description": "Here are the top anime hairstyles according to...",
+			"favoriteCount": 398
+		}
+	]
+}
+```
+
+### `POST /me/favorites`
+
+> **WARNING**: User needs to be signed in.
+
+Adds the post to user favorites.
+
+#### Body
+
+```json
+{
+	"postId": 1
+}
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"message": "Successfully favorited post."
+}
+```
+
+### `DELETE /me/favorites/:id`
+
+> **WARNING**: User needs to be signed in.
+
+Deletes post from user favorites.
+
+#### Response
+
+```json
+{
+	"success": true,
+	"message": "Successfully unfavorited post."
+}
+```
+
+# The frontend
+
+## Posts Page
+
+### `/posts`
+
+Shows the last 100 posts.
+
+## Favorites Page
+
+> **WARNING**: User needs to be signed in.
+
+### `/me/favorites`
+
+Shows posts that have been favorited by the user.
+
+## Authentication page
+
+### `/login`
+
+Shows the login page where the user could sign in or sign up.
