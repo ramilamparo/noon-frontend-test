@@ -13,8 +13,7 @@
         -   [POST /me/favorites](###POST-/me/favorites)
         -   [DELETE /me/favorites](###POST-/me/favorites)
 -   [The frontend](#The-frontend)
-    -   [Posts page](##Posts-page)
-        -   [/posts](###/posts)
+    -   [Home page](##Home-page)
     -   [Favorites page](##Posts-page)
         -   [/me/favorites](###/me/favorites)
     -   [Authentication page](##Posts-page)
@@ -119,6 +118,7 @@ Get all posts.
 		{
 			"id": 1,
 			"title": "Top 10 Anime Hairstyles",
+			"image": "https://unsplash.com/photos/9pO3LgH-9-Y",
 			"description": "Here are the top anime hairstyles according to...",
 			"favoriteCount": 398
 		}
@@ -128,7 +128,10 @@ Get all posts.
 
 ### `POST /posts`
 
+> **WARNING**: To protect this app from illegal images, I decided to only allow images hosted on unsplash.org.
+
 > **WARNING**: User needs to be signed in.
+
 
 Create a new post.
 
@@ -137,6 +140,7 @@ Create a new post.
 ```json
 {
 	"title": "Top 10 Anime Hairstyles",
+	"image": "https://unsplash.com/photos/9pO3LgH-9-Y",
 	"description": "Here are the top anime hairstyles according to..."
 }
 ```
@@ -150,6 +154,7 @@ Create a new post.
 	"data": {
 		"id": 1,
 		"title": "Top 10 Anime Hairstyles",
+		"image": "https://unsplash.com/photos/9pO3LgH-9-Y",
 		"description": "Here are the top anime hairstyles according to...",
 		"favoriteCount": 398
 	}
@@ -173,6 +178,7 @@ Returns all favorited posts by the user.
 	"data": [
 		{
 			"title": "Top 10 Anime Hairstyles",
+			"image": "https://unsplash.com/photos/9pO3LgH-9-Y",
 			"description": "Here are the top anime hairstyles according to...",
 			"favoriteCount": 398
 		}
@@ -220,9 +226,7 @@ Deletes post from user favorites.
 
 # The frontend
 
-## Posts Page
-
-### `/posts`
+## Home page
 
 Shows the last 100 posts.
 
