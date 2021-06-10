@@ -1,5 +1,4 @@
 {
-	"parser": "typescript",
 	"printWidth": 80,
 	"tabWidth": 1,
 	"semi": true,
@@ -8,11 +7,5 @@
 	"singleQuote": false,
 	"trailingComma": "es5",
 	"arrowParens": "always",
-	"useTabs": true,
-	"overrides": [
-		{
-			"files": ["*.json"],
-			"options": { "parser": "json" }
-		}
-	]
+	"useTabs": true
 }
