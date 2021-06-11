@@ -1,4 +1,4 @@
-import { JwtAuthStorage } from "@utils/JwtStorage";
+import { JwtAuthStorage } from "@utils/client/JwtStorage";
 import { RestApi } from "./RestApi";
 
 export interface AuthLoginData {

@@ -1,4 +1,4 @@
-import { Auth } from "@utils/api-utils/Auth";
+import { Auth } from "@utils/client/api/Auth";
 import { useCallback } from "react";
 
 export const useAuth = () => {

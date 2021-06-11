@@ -1,5 +1,5 @@
 import { ServerResponse, ServerResponseMeta } from "@typings";
-import { JwtAuthStorage } from "@utils/JwtStorage";
+import { JwtAuthStorage } from "@utils/client/JwtStorage";
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import { RestApiError } from "./RestApiError";
 

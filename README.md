@@ -1,14 +1,15 @@
 # Table of Contents
 
--   [Running the app](#running-the-app)
--   [The backend API](#the-backend-api)
-    -   [Authentication API](#authentication-api)
-    -   [Posts API](#posts-api)
-    -   [Favorites API](#favorites-api)
--   [The frontend](#the-frontend)
-    -   [Home page](#home-page)
-    -   [Favorites page](#favorites-page)
-    -   [Authentication page](#authentication-page)
+- [Running the app](#running-the-app)
+- [Required environment variables](#required-environment-variables)
+- [The backend API](#the-backend-api)
+  - [Authentication API](#authentication-api)
+  - [Posts API](#posts-api)
+  - [Favorites API](#favorites-api)
+- [The frontend](#the-frontend)
+  - [Home page](#home-page)
+  - [Favorites page](#favorites-page)
+  - [Authentication page](#authentication-page)
 
 # Running the app
 
@@ -18,6 +19,14 @@ To run in development mode, use:
 npm run dev
 # or
 yarn dev
+```
+
+# Required environment variables
+
+You can create a .env in the root project directory and create the following records.
+
+```
+SECRET=Your_Secret_Key_To_Encrypt_Password
 ```
 
 # The backend API
@@ -122,7 +131,6 @@ Get all posts.
 > **WARNING**: To protect this app from illegal images, I decided to only allow images hosted on unsplash.org.
 
 > **WARNING**: User needs to be signed in.
-
 
 Create a new post.
 
