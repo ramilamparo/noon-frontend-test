@@ -15,9 +15,9 @@ export interface DocumentProps {
 export default class MyDocument extends Document<DocumentProps> {
 	static async getInitialProps({ renderPage }: DocumentContext) {
 		const sheet = new ServerStyleSheet();
-		const page = renderPage(
-			(App) => (props) => sheet.collectStyles(<App {...props} />)
-		);
+		const page = renderPage((App) => (props) => {
+			return sheet.collectStyles(<App {...props} />);
+		});
 		const styleTags = sheet.getStyleElement();
 		return { ...page, styleTags };
 	}

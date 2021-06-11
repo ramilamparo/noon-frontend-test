@@ -1,3 +1,5 @@
+import { PostCreateForm } from "components/container/PostCreateForm";
+
 export default function Home() {
-	return <div>HOME PAGE</div>;
+	return <PostCreateForm />;
 }

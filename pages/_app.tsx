@@ -1,14 +1,23 @@
+import { ComponentType } from "react";
+import Head from "next/head";
+import { Provider } from "react-redux";
 import { GlobalStyles } from "components/utils/GlobalStyles";
 import { ThemeProvider } from "components/utils/Theme";
-import Head from "next/head";
-import { ComponentType } from "react";
+import { initializeStore, StoreState, useStore } from "store/state";
+import { Post as PostAction } from "store/actions/Post";
+import { PostService } from "@utils/server/services/Post";
 
 export interface AppProps<T> {
-	Component: ComponentType<T>;
+	Component: ComponentType<unknown>;
 	pageProps: T;
 }
 
-const App = <T,>({ Component, pageProps }: AppProps<T>) => {
+const App = ({
+	Component,
+	pageProps,
+}: AppProps<{ initialReduxState: StoreState }>) => {
+	const { initialReduxState, ...otherProps } = pageProps;
+	const reduxStore = useStore(initialReduxState);
 	return (
 		<>
 			<Head>
@@ -17,13 +26,35 @@ const App = <T,>({ Component, pageProps }: AppProps<T>) => {
 					href="https://fonts.googleapis.com/css2?family=Material+Icons"
 					rel="stylesheet"
 				/>
+				<link rel="preconnect" href="https://fonts.gstatic.com" />
+				<link
+					href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+					rel="stylesheet"
+				/>
 			</Head>
 			<GlobalStyles />
-			<ThemeProvider>
-				<Component {...pageProps} />
-			</ThemeProvider>
+			<Provider store={reduxStore}>
+				<ThemeProvider>
+					<Component {...otherProps} />
+				</ThemeProvider>
+			</Provider>
 		</>
 	);
+};
+
+export const getServerSideProps = async () => {
+	const reduxStore = initializeStore();
+	const { dispatch } = reduxStore;
+
+	const posts = await PostService.getAll();
+
+	dispatch(PostAction.set(posts));
+
+	return {
+		props: {
+			initialReduxState: reduxStore.getState(),
+		},
+	};
 };
 
 export default App;

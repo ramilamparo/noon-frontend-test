@@ -13,7 +13,7 @@ export interface BaseInputProps {
 }
 
 const shiftLabelUpStyle = css`
-	transform: translate(-10%, -3rem) scale(0.8);
+	transform: translate(-10%, -2rem) scale(0.8);
 	background-color: white;
 `;
 
@@ -25,9 +25,8 @@ const Container = styled.div<{ $raiseLabel?: boolean }>`
 		transition: all 0.1s ease-in;
 		margin-left: 1rem;
 		position: absolute;
-		top: 50%;
+		top: 1rem;
 		left: 0;
-		transform: translateY(-50%);
 		z-index: 1;
 
 		${(p) => p.$raiseLabel && shiftLabelUpStyle}

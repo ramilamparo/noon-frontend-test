@@ -1,13 +1,8 @@
-import { PostResponseData } from "@typings";
+import { PostCreateData, PostResponseData } from "@typings";
 import { RestApi } from "./RestApi";
 
-export interface PostCreateData {
-	title: string;
-	description: string;
-}
-
 export class Post implements PostResponseData {
-	public id: string;
+	public id: number;
 	public title: string;
 	public description: string;
 	public favoriteCount: number;

@@ -12,7 +12,7 @@ export interface HasId {
 }
 
 export interface PostResponseData {
-	id: string;
+	id: number;
 	title: string;
 	description: string;
 	favoriteCount: number;
@@ -20,4 +20,9 @@ export interface PostResponseData {
 
 export interface AuthLoginResponseData {
 	token: string;
+}
+
+export interface PostCreateData {
+	title: string;
+	description: string;
 }

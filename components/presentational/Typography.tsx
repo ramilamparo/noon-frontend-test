@@ -22,7 +22,6 @@ export type TypographyVariant =
 
 export class Typography extends Component<TypographyProps, unknown> {
 	private static baseStyle = css`
-		@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap");
 		font-family: Inter;
 		font-size: 1.6rem;
 	`;
