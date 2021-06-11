@@ -10,3 +10,14 @@ export interface ServerResponse<T> extends ServerResponseMeta {
 export interface HasId {
 	id: number;
 }
+
+export interface PostResponseData {
+	id: string;
+	title: string;
+	description: string;
+	favoriteCount: number;
+}
+
+export interface AuthLoginResponseData {
+	token: string;
+}

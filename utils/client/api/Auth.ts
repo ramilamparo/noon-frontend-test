@@ -1,14 +1,11 @@
+import { AuthLoginResponseData } from "@typings";
 import { JwtAuthStorage } from "@utils/client/JwtStorage";
 import { RestApi } from "./RestApi";
-
-export interface AuthLoginData {
-	token: string;
-}
 
 export class Auth {
 	public static async login(username: string, password: string) {
 		const api = RestApi.create("/api");
-		const response = await api.post<AuthLoginData>("/auth/login", {
+		const response = await api.post<AuthLoginResponseData>("/auth/login", {
 			username,
 			password,
 		});
