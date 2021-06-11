@@ -21,10 +21,6 @@ module.exports = {
 	},
 	plugins: ["react", "@typescript-eslint", "prettier"],
 	rules: {
-		indent: ["error", "tab"],
-		"linebreak-style": ["error", "unix"],
-		quotes: ["error", "double"],
-		semi: ["error", "always"],
 		"react/react-in-jsx-scope": "off",
 		"react/prop-types": "off",
 		"@typescript-eslint/explicit-module-boundary-types": "off",
