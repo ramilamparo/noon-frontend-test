@@ -5,9 +5,6 @@ export abstract class Bcrypt {
 		return bcrypt.hash(password, 10);
 	}
 
-	/**
-	 * @throws If the password is not correct.
-	 */
 	public static comparePasswordToHash(password: string, hash: string) {
 		return bcrypt.compare(password, hash);
 	}
