@@ -6,6 +6,7 @@ import { ThemeProvider } from "components/utils/Theme";
 import { initializeStore, StoreState, useStore } from "store/state";
 import { Post as PostAction } from "store/actions/Post";
 import { PostService } from "@utils/server/services/Post";
+import { NavBar } from "../components/container/NavBar";
 
 export interface AppProps<T> {
 	Component: ComponentType<unknown>;
@@ -35,6 +36,7 @@ const App = ({
 			<GlobalStyles />
 			<Provider store={reduxStore}>
 				<ThemeProvider>
+					<NavBar />
 					<Component {...otherProps} />
 				</ThemeProvider>
 			</Provider>

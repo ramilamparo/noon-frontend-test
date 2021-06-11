@@ -8,12 +8,16 @@ let store: Store<StoreState, AllActions> | undefined;
 
 export type PostsState = PostResponseData[] | null;
 
+export type AuthState = boolean | null;
+
 export interface StoreState {
 	posts: PostsState;
+	auth: AuthState;
 }
 
 export const INITIAL_STATE: StoreState = {
 	posts: null,
+	auth: null,
 };
 
 export const initializeStore = (preloadedState?: StoreState) => {

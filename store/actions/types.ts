@@ -4,6 +4,7 @@ import { StoreState } from "../state";
 
 export enum ActionType {
 	SET_POSTS = "SET_POSTS",
+	SET_AUTH = "SET_AUTH",
 }
 
 /**
@@ -15,6 +16,8 @@ export interface Action<T, P> extends ReduxAction<T> {
 
 export type SetPostsAction = Action<ActionType.SET_POSTS, StoreState["posts"]>;
 
-export type AllActions = SetPostsAction;
+export type SetAuthAction = Action<ActionType.SET_AUTH, StoreState["auth"]>;
+
+export type AllActions = SetPostsAction | SetAuthAction;
 
 export type AppDispatch = Dispatch<AllActions>;
