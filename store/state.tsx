@@ -1,6 +1,6 @@
-import { createStore, Store } from "redux";
+import { createStore, Store, combineReducers } from "redux";
 import { PostResponseData } from "@typings";
-import { reducers } from "./reducers";
+import * as reducers from "./reducers";
 import { AllActions } from "./actions/types";
 import { useMemo } from "react";
 
@@ -54,7 +54,7 @@ export const useStore = (initialState: StoreState) => {
 
 function initStore(preloadedState = INITIAL_STATE) {
 	return createStore<StoreState, AllActions, unknown, unknown>(
-		reducers,
+		combineReducers(reducers),
 		preloadedState
 	);
 }

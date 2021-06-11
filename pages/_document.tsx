@@ -1,10 +1,4 @@
-import Document, {
-	Html,
-	DocumentContext,
-	Head,
-	Main,
-	NextScript,
-} from "next/document";
+import Document, { DocumentContext } from "next/document";
 import { JSXElementConstructor, ReactElement } from "react";
 import { ServerStyleSheet } from "styled-components";
 
@@ -36,17 +30,5 @@ export default class MyDocument extends Document<DocumentProps> {
 		} finally {
 			sheet.seal();
 		}
-	}
-
-	render() {
-		return (
-			<Html>
-				<Head>{this.props.styleTags}</Head>
-				<body>
-					<Main />
-					<NextScript />
-				</body>
-			</Html>
-		);
 	}
 }
