@@ -4,10 +4,17 @@ import { StoreState } from "store/state";
 import { AppDispatch } from "store/actions/types";
 import { Post as PostAction } from "store/actions/Post";
 import { Post } from "@utils/client/api/Post";
-import { PostCreateData } from "@typings";
+import { HasId, PostCreateData } from "@typings";
 
 export const usePosts = () => {
-	const data = useSelector((state: StoreState) => state.posts);
+	const data = useSelector(({ posts }: StoreState) => {
+		if (posts) {
+			return posts.sort((a, b) => {
+				return b.createdAt - a.createdAt;
+			});
+		}
+		return posts;
+	});
 
 	const dispatch = useDispatch<AppDispatch>();
 
@@ -24,9 +31,14 @@ export const usePosts = () => {
 		[refetch]
 	);
 
+	const favoritePost = useCallback(async (post: HasId) => {
+		await Post.addPostToMyFavorites(post);
+	}, []);
+
 	return {
 		data,
 		refetch,
 		create,
+		favoritePost,
 	};
 };

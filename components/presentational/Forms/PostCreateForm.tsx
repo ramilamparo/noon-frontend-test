@@ -16,6 +16,7 @@ export interface PostCreateFormProps
 	extends FormProviderProps<PostCreateFormValues> {
 	onSubmit: () => void;
 	loading?: boolean;
+	className?: string;
 }
 
 const TitleInput = styled(TextInput)`
@@ -56,10 +57,11 @@ const DescriptionInput = styled(RichTextInput)`
 export const PostCreateForm = ({
 	onSubmit,
 	loading,
+	className,
 	...formProps
 }: PostCreateFormProps) => {
 	return (
-		<Container>
+		<Container className={className}>
 			<StyledBaseForm title="Create a Post!" {...formProps}>
 				<TitleInput name="title" label="Title" />
 				<ImageURLInput name="imageSrc" label="Image URL" />

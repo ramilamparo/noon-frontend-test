@@ -10,8 +10,8 @@ import {
 import { AuthService } from "@utils/server/services/Auth";
 import { NextApiHandler } from "next/types";
 
-const login: NextApiHandler = (req, res) => {
-	return handler.respondTo(req, res);
+const login: NextApiHandler = async (req, res) => {
+	await handler.respondTo(req, res);
 };
 
 const postHandler: NextRequestHandlerFunction = async (req, res) => {

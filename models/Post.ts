@@ -17,7 +17,7 @@ export interface PostAttributes {
 
 export class Post extends BaseModel implements PostAttributes {
 	public static get tableName() {
-		return "Users";
+		return "Posts";
 	}
 
 	public static get relationMappings(): RelationMappings {
@@ -52,4 +52,6 @@ export class Post extends BaseModel implements PostAttributes {
 	public description: string;
 
 	public authorId: number;
+
+	public imageSrc: string;
 }

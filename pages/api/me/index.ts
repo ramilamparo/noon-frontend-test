@@ -1,26 +1,28 @@
+import { UnauthorizedException } from "@exceptions/UnauthorizedException";
 import { ServerResponseMeta } from "@typings";
 import {
 	NextRequestHandler,
 	NextRequestHandlerFunction,
 } from "@utils/server/NextRequestHandler";
-import { AuthService } from "@utils/server/services/Auth";
 import { NextApiHandler } from "next/types";
 
-const signup: NextApiHandler = async (req, res) => {
+const posts: NextApiHandler = async (req, res) => {
 	await handler.respondTo(req, res);
 };
 
-const postHandler: NextRequestHandlerFunction = async (req, res) => {
+const checkAuthHandler: NextRequestHandlerFunction = async (req, res, ctx) => {
 	try {
+		if (!ctx.user) {
+			throw new UnauthorizedException();
+		}
 		const response: ServerResponseMeta = {
-			message: "Successfully signed up!",
-			success: true,
+			message: "You are logged in!",
+			success: false,
 		};
-		await AuthService.signup(req.body.username, req.body.password);
 		return res.status(200).json(response);
 	} catch (e) {
 		const response: ServerResponseMeta = {
-			message: "Cannot sign up, try using another username?",
+			message: "You are not logged in!",
 			success: false,
 		};
 		return res.status(403).json(response);
@@ -28,7 +30,7 @@ const postHandler: NextRequestHandlerFunction = async (req, res) => {
 };
 
 const handler = NextRequestHandler.create({
-	POST: postHandler,
+	GET: checkAuthHandler,
 });
 
-export default signup;
+export default posts;

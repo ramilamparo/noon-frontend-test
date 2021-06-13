@@ -1,4 +1,8 @@
-import { PostResponseData, ServerResponse, ServerResponseMeta } from "@typings";
+import {
+	PostResponseApiData,
+	ServerResponse,
+	ServerResponseMeta,
+} from "@typings";
 import {
 	NextRequestHandler,
 	NextRequestHandlerFunction,
@@ -13,7 +17,7 @@ const posts: NextApiHandler = async (req, res) => {
 const getAllPostsHandler: NextRequestHandlerFunction = async (req, res) => {
 	try {
 		const posts = await PostService.getAll();
-		const response: ServerResponse<PostResponseData[]> = {
+		const response: ServerResponse<PostResponseApiData[]> = {
 			message: "Unknown Error",
 			success: false,
 			data: posts,
@@ -35,13 +39,14 @@ const createPostHanlder: NextRequestHandlerFunction = async (req, res, ctx) => {
 				...req.body,
 				authorId: ctx.user.id,
 			});
-			const response: ServerResponse<PostResponseData> = {
+			const response: ServerResponse<PostResponseApiData> = {
 				data: createdPost,
 				message: "Successfully created post.",
 				success: true,
 			};
-			return res.status(422).json(response);
+			return res.status(200).json(response);
 		} catch (e) {
+			console.log(e);
 			const response: ServerResponseMeta = {
 				message: "Invalid parameters.",
 				success: false,

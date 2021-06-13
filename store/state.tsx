@@ -1,12 +1,12 @@
 import { createStore, Store, combineReducers } from "redux";
-import { PostResponseData } from "@typings";
+import { PostResponseApiData } from "@typings";
 import * as reducers from "./reducers";
 import { AllActions } from "./actions/types";
 import { useMemo } from "react";
 
 let store: Store<StoreState, AllActions> | undefined;
 
-export type PostsState = PostResponseData[] | null;
+export type PostsState = PostResponseApiData[] | null;
 
 export type AuthState = boolean | null;
 

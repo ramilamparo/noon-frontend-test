@@ -7,7 +7,7 @@ export class Auth {
 		try {
 			const token = JwtAuthStorage.get();
 			const api = RestApi.createWithAuthToken("/api", token);
-			await api.get<ServerResponseMeta>("/auth/me");
+			await api.get<ServerResponseMeta>("/me");
 			return true;
 		} catch (e) {
 			return false;

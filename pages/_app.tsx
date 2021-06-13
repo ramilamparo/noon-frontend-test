@@ -4,20 +4,17 @@ import { Provider } from "react-redux";
 import { GlobalStyles } from "components/utils/GlobalStyles";
 import { ThemeProvider } from "components/utils/Theme";
 import { initializeStore, StoreState, useStore } from "store/state";
-import { Post as PostAction } from "store/actions/Post";
-import { PostService } from "@utils/server/services/Post";
 import { NavBar } from "../components/container/NavBar";
+import { Post as PostApi } from "@utils/client/api/Post";
+import { Post as PostAction } from "store/actions/Post";
 
-export interface AppProps<T> {
+export interface AppProps {
 	Component: ComponentType<unknown>;
-	pageProps: T;
+	pageProps: Record<string, unknown>;
+	initialReduxState: StoreState;
 }
 
-const App = ({
-	Component,
-	pageProps,
-}: AppProps<{ initialReduxState: StoreState }>) => {
-	const { initialReduxState, ...otherProps } = pageProps;
+const App = ({ Component, pageProps, initialReduxState }: AppProps) => {
 	const reduxStore = useStore(initialReduxState);
 	return (
 		<>
@@ -37,26 +34,24 @@ const App = ({
 			<Provider store={reduxStore}>
 				<ThemeProvider>
 					<NavBar />
-					<Component {...otherProps} />
+					<Component {...pageProps} />
 				</ThemeProvider>
 			</Provider>
 		</>
 	);
 };
 
-export const getServerSideProps = async () => {
+export default App;
+
+App.getInitialProps = async () => {
 	const reduxStore = initializeStore();
 	const { dispatch } = reduxStore;
 
-	const posts = await PostService.getAll();
+	const posts = await PostApi.getAll();
 
 	dispatch(PostAction.set(posts));
 
 	return {
-		props: {
-			initialReduxState: reduxStore.getState(),
-		},
+		initialReduxState: reduxStore.getState(),
 	};
 };
-
-export default App;

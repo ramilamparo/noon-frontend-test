@@ -37,6 +37,6 @@ export const useAuth = () => {
 		login,
 		logout,
 		signup,
-		isLoggedIn: auth,
+		isLoggedIn: auth !== null,
 	};
 };

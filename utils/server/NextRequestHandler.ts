@@ -41,7 +41,7 @@ export class NextRequestHandler {
 	}
 
 	private static extractTokenFromHeaders(headers: IncomingHttpHeaders) {
-		const authorizationHeader = headers["Authorization"];
+		const authorizationHeader = headers["authorization"];
 		if (typeof authorizationHeader === "string") {
 			const token = authorizationHeader.replace("Bearer ", "");
 			return token;
