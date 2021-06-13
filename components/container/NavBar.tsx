@@ -9,8 +9,11 @@ export const NavBar = () => {
 	const links = useMemo(() => {
 		const links: LinksMap = {};
 		if (isLoggedIn) {
+			links["Home"] = "/";
+			links["My Favorites"] = "/me/favorites";
 			links["Logout"] = logout;
 		} else {
+			links["Home"] = "/";
 			links["Login"] = "/login";
 			links["Signup"] = "/signup";
 		}

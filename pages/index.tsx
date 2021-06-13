@@ -1,5 +1,6 @@
 import { PostCreateForm } from "components/container/PostCreateForm";
 import { PostList } from "components/container/PostList";
+import { useAuth } from "components/hooks/useAuth";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -12,9 +13,10 @@ const StyledPostCreateForm = styled(PostCreateForm)`
 `;
 
 export default function Home() {
+	const auth = useAuth();
 	return (
 		<Container>
-			<StyledPostCreateForm />
+			{auth.isLoggedIn && <StyledPostCreateForm />}
 			<PostList />
 		</Container>
 	);
