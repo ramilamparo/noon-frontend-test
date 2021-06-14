@@ -35,7 +35,10 @@ The RESTful is integrated within the same codebase as NextJS.
 
 ## Authentication API
 
-When a user tries to login, the server responds with a session cookie which it will then use to identify the user in further requests.
+- JWT used for authentication token. The token must be used in each request as a header to identify the user. `Authorization: Bearer <token>`
+- Passwords are encrypted in Bcrypt.
+- sqlite is used as a database, so don't expect your user data to persist after a few days!
+- ObjectionJS as an ORM
 
 ### `POST /auth/login`
 
@@ -118,7 +121,7 @@ Get all posts.
 		{
 			"id": 1,
 			"title": "Top 10 Anime Hairstyles",
-			"image": "https://unsplash.com/photos/9pO3LgH-9-Y",
+			"imageSrc": "https://images.unsplash.com/photos/9pO3LgH-9-Y",
 			"description": "Here are the top anime hairstyles according to...",
 			"favoriteCount": 398
 		}
@@ -139,7 +142,7 @@ Create a new post.
 ```json
 {
 	"title": "Top 10 Anime Hairstyles",
-	"image": "https://unsplash.com/photos/9pO3LgH-9-Y",
+	"imageSrc": "https://images.unsplash.com/photos/9pO3LgH-9-Y",
 	"description": "Here are the top anime hairstyles according to..."
 }
 ```
@@ -153,7 +156,7 @@ Create a new post.
 	"data": {
 		"id": 1,
 		"title": "Top 10 Anime Hairstyles",
-		"image": "https://unsplash.com/photos/9pO3LgH-9-Y",
+		"imageSrc": "https://images.unsplash.com/photos/9pO3LgH-9-Y",
 		"description": "Here are the top anime hairstyles according to...",
 		"favoriteCount": 398
 	}
@@ -162,7 +165,7 @@ Create a new post.
 
 ## Favorites API
 
-### `GET /me/favorites`
+### `GET /api/me/favorites`
 
 > **WARNING**: User needs to be signed in.
 
@@ -177,7 +180,7 @@ Returns all favorited posts by the user.
 	"data": [
 		{
 			"title": "Top 10 Anime Hairstyles",
-			"image": "https://unsplash.com/photos/9pO3LgH-9-Y",
+			"imageSrc": "https://images.unsplash.com/photos/9pO3LgH-9-Y",
 			"description": "Here are the top anime hairstyles according to...",
 			"favoriteCount": 398
 		}
@@ -185,7 +188,7 @@ Returns all favorited posts by the user.
 }
 ```
 
-### `POST /me/favorites`
+### `POST /api/me/favorites`
 
 > **WARNING**: User needs to be signed in.
 
@@ -208,7 +211,7 @@ Adds the post to user favorites.
 }
 ```
 
-### `DELETE /me/favorites/:id`
+### `DELETE /api/me/favorites/:id`
 
 > **WARNING**: User needs to be signed in.
 
@@ -225,6 +228,10 @@ Deletes post from user favorites.
 
 # The frontend
 
+- NextJS used as the React framework.
+- Used styled-components for styling.
+- Redux used for app state management.
+
 ## Home page
 
 Shows the last 100 posts.
@@ -240,5 +247,9 @@ Shows posts that have been favorited by the user.
 ## Authentication page
 
 ### `/login`
+
+Shows the login page where the user could sign in or sign up.
+
+### `/signup`
 
 Shows the login page where the user could sign in or sign up.
