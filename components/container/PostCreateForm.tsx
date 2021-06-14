@@ -2,6 +2,7 @@ import {
 	PostCreateForm as PostCreateFormPresentational,
 	PostCreateFormValues,
 } from "@presentational/Forms/PostCreateForm";
+import { useAlerts } from "components/hooks/useAlerts";
 import { usePosts } from "components/hooks/usePosts";
 import { useCallback, useState } from "react";
 import { useFormState } from "react-form";
@@ -22,11 +23,25 @@ export const PostCreateForm = ({ className }: PostCreateFormProps) => {
 
 	const [loading, setLoading] = useState(false);
 
-	const onSubmit = useCallback(() => {
-		setLoading(true);
-		posts.create(form.values);
-		setLoading(false);
-	}, [posts, form.values]);
+	const alerts = useAlerts();
+
+	const onSubmit = useCallback(async () => {
+		try {
+			setLoading(true);
+			await posts.create(form.values);
+			alerts.createAlert({
+				message: "Post created!",
+				type: "SUCCESS",
+			});
+		} catch (e) {
+			alerts.createAlert({
+				message: e.message,
+				type: "ERROR",
+			});
+		} finally {
+			setLoading(false);
+		}
+	}, [posts, form.values, alerts]);
 
 	return (
 		<PostCreateFormPresentational
