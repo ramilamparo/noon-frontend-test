@@ -1,5 +1,5 @@
 import { getUnixTime } from "date-fns";
-import { PostResponseApiData } from "@typings";
+import { HasId, PostResponseApiData } from "@typings";
 import { Post } from "models/Post";
 import { User } from "models/User";
 
@@ -28,10 +28,10 @@ export class PostService {
 	}
 
 	public static async getUserFavorites(
-		userId: number
+		user: HasId
 	): Promise<PostResponseApiData[]> {
 		const allPosts = (await User.relatedQuery("favorites")
-			.for(userId)
+			.for(user.id)
 			.select(
 				"Posts.*",
 				Post.relatedQuery("favorites").count().as("favoriteCount")
@@ -45,6 +45,17 @@ export class PostService {
 			imageSrc: post.imageSrc,
 			createdAt: getUnixTime(post.createdAt),
 		}));
+	}
+
+	public static async addPostToUserFavorites(post: HasId, user: HasId) {
+		await User.relatedQuery("favorites").for(user.id).relate(post.id);
+	}
+
+	public static async removePostFromUserFavorites(post: HasId, user: HasId) {
+		await User.relatedQuery("favorites")
+			.for(user.id)
+			.unrelate()
+			.where({ postId: post.id });
 	}
 
 	public static async create(

@@ -1,6 +1,6 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { StoreState } from "store/state";
+import { PostsState, StoreState } from "store/state";
 import { AppDispatch } from "store/actions/types";
 import { Post as PostAction } from "store/actions/Post";
 import { Post } from "@utils/client/api/Post";
@@ -16,12 +16,31 @@ export const usePosts = () => {
 		return posts;
 	});
 
+	const [favoritePosts, setFavoritePosts] = useState<PostsState>(null);
+
 	const dispatch = useDispatch<AppDispatch>();
 
 	const refetch = useCallback(async () => {
 		const posts = await Post.getAll();
+		Post.getMyFavorites()
+			.then((favorites) => {
+				setFavoritePosts(favorites);
+			})
+			.catch(() => {
+				setFavoritePosts([]);
+			});
 		dispatch(PostAction.set(posts));
 	}, [dispatch]);
+
+	const refetchFavorites = useCallback(async () => {
+		await Post.getMyFavorites()
+			.then((favorites) => {
+				setFavoritePosts(favorites);
+			})
+			.catch(() => {
+				setFavoritePosts([]);
+			});
+	}, []);
 
 	const create = useCallback(
 		async (post: PostCreateData) => {
@@ -31,14 +50,42 @@ export const usePosts = () => {
 		[refetch]
 	);
 
-	const favoritePost = useCallback(async (post: HasId) => {
-		await Post.addPostToMyFavorites(post);
-	}, []);
+	const checkIfPostIsFavorited = useCallback(
+		(checkPost: HasId) => {
+			if (favoritePosts) {
+				const foundFavorite = favoritePosts.find((post) => {
+					return post.id === checkPost.id;
+				});
+				return foundFavorite !== undefined;
+			}
+			return false;
+		},
+		[favoritePosts]
+	);
+
+	const toggleFavoritePost = useCallback(
+		async (post: HasId) => {
+			if (checkIfPostIsFavorited(post)) {
+				await Post.removePostFromMyFavorites(post);
+			} else {
+				await Post.addPostToMyFavorites(post);
+			}
+			refetch();
+			refetchFavorites();
+		},
+		[refetchFavorites, checkIfPostIsFavorited, refetch]
+	);
+
+	useEffect(() => {
+		refetchFavorites();
+	}, [refetchFavorites]);
 
 	return {
 		data,
 		refetch,
 		create,
-		favoritePost,
+		toggleFavoritePost,
+		favoritePosts,
+		checkIfPostIsFavorited,
 	};
 };

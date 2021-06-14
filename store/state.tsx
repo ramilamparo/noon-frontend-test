@@ -13,10 +13,12 @@ export type AuthState = boolean | null;
 export interface StoreState {
 	posts: PostsState;
 	auth: AuthState;
+	favoritePosts: PostsState;
 }
 
 export const INITIAL_STATE: StoreState = {
 	posts: null,
+	favoritePosts: null,
 	auth: null,
 };
 

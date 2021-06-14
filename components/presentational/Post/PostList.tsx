@@ -7,6 +7,7 @@ export interface PostListProps {
 	posts: PostResponseApiData[];
 	onFavorite?: (post: PostResponseApiData) => void;
 	isLoggedIn?: boolean;
+	isPostFavorite?: (post: PostResponseApiData) => boolean;
 }
 
 const Container = styled.div`
@@ -15,7 +16,12 @@ const Container = styled.div`
 	}
 `;
 
-export const PostList = ({ posts, onFavorite, isLoggedIn }: PostListProps) => {
+export const PostList = ({
+	posts,
+	onFavorite,
+	isLoggedIn,
+	isPostFavorite,
+}: PostListProps) => {
 	const handleFavorite = useCallback(
 		(postId: number) => {
 			if (onFavorite) {
@@ -28,16 +34,18 @@ export const PostList = ({ posts, onFavorite, isLoggedIn }: PostListProps) => {
 
 	const postNodes = useMemo(() => {
 		return posts.map((post) => {
+			const isFavorite = isPostFavorite && isPostFavorite(post);
 			return (
 				<PostItem
 					key={post.id}
 					post={post}
 					isLoggedIn={isLoggedIn}
 					onFavorite={handleFavorite}
+					isFavorite={isFavorite}
 				/>
 			);
 		});
-	}, [posts, handleFavorite, isLoggedIn]);
+	}, [posts, handleFavorite, isLoggedIn, isPostFavorite]);
 
 	return <Container>{postNodes}</Container>;
 };

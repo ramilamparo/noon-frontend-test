@@ -11,6 +11,7 @@ export interface PostItemProps {
 	className?: string;
 	onFavorite?: (id: number) => void;
 	isLoggedIn?: boolean;
+	isFavorite?: boolean;
 }
 
 const Container = styled(Paper)`
@@ -30,6 +31,7 @@ export const PostItem = ({
 	onFavorite,
 	className,
 	isLoggedIn,
+	isFavorite,
 }: PostItemProps) => {
 	const { description, title, favoriteCount, imageSrc, id } = post;
 	const handleOnFavorite = useCallback(() => {
@@ -41,6 +43,7 @@ export const PostItem = ({
 			<PostHeader title={title} />
 			<PostImage imageSrc={imageSrc} alt={title} />
 			<PostFooter
+				isFavorite={isFavorite}
 				isLoggedIn={isLoggedIn}
 				createdAt={post.createdAt}
 				description={description}

@@ -1,26 +1,32 @@
-import { UnauthorizedException } from "@exceptions/UnauthorizedException";
 import { ServerResponseMeta } from "@typings";
 import {
 	NextRequestHandler,
 	NextRequestHandlerFunction,
 } from "@utils/server/NextRequestHandler";
+import { PostService } from "@utils/server/services/Post";
 import { NextApiHandler } from "next/types";
 
 const posts: NextApiHandler = async (req, res) => {
 	await handler.respondTo(req, res);
 };
 
-const checkAuthHandler: NextRequestHandlerFunction = async (req, res, ctx) => {
-	try {
-		if (!ctx.user) {
-			throw new UnauthorizedException();
-		}
+const deleteFavorite: NextRequestHandlerFunction = async (req, res, ctx) => {
+	if (ctx.user) {
+		const postId = Number(req.query.postId);
+		await PostService.removePostFromUserFavorites(
+			{
+				id: postId,
+			},
+			{
+				id: ctx.user.id,
+			}
+		);
 		const response: ServerResponseMeta = {
-			message: "You are logged in!",
-			success: false,
+			message: "Favorited post!",
+			success: true,
 		};
 		return res.status(200).json(response);
-	} catch (e) {
+	} else {
 		const response: ServerResponseMeta = {
 			message: "You are not logged in!",
 			success: false,
@@ -30,7 +36,7 @@ const checkAuthHandler: NextRequestHandlerFunction = async (req, res, ctx) => {
 };
 
 const handler = NextRequestHandler.create({
-	GET: checkAuthHandler,
+	DELETE: deleteFavorite,
 });
 
 export default posts;

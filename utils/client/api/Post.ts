@@ -1,4 +1,9 @@
-import { HasId, PostCreateData, PostResponseApiData } from "@typings";
+import {
+	HasId,
+	PostCreateData,
+	PostResponseApiData,
+	ServerResponseMeta,
+} from "@typings";
 import { RestApi } from "./RestApi";
 
 export class Post implements PostResponseApiData {
@@ -44,14 +49,13 @@ export class Post implements PostResponseApiData {
 
 	public static async addPostToMyFavorites({ id }: HasId) {
 		const api = RestApi.createWithAuthToken("/api/me");
-		const response = await api.post<PostResponseApiData>("/favorites", {
+		await api.post<ServerResponseMeta>("/favorites", {
 			postId: id,
 		});
-		return Post.fromObject(response.data);
 	}
 
-	public async removePostFromMyFavorites() {
+	public static async removePostFromMyFavorites({ id }: HasId) {
 		const api = RestApi.createWithAuthToken("/api/me");
-		await api.delete<PostResponseApiData>(`/favorites/${this.id}`);
+		await api.delete<ServerResponseMeta>(`/favorites/${id}`);
 	}
 }

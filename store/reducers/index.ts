@@ -1,4 +1,6 @@
 import { posts } from "./posts";
 import { auth } from "./auth";
 
-export { posts, auth };
+const favoritePosts = posts;
+
+export { posts, auth, favoritePosts };
