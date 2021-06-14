@@ -1,0 +1,25 @@
+services:
+ database:
+  image: postgres:latest
+  volumes:
+   - /var/lib/postgresql_noon_frontend_exam:/var/lib/postgresql
+  environment:
+   - POSTGRES_PASSWORD
+   - POSTGRES_USER
+   - POSTGRES_DB
+  restart: always
+ next:
+  build:
+   context: .
+   dockerfile: dockerfile
+  environment:
+   - DATABASE_NAME
+   - DATABASE_USER
+   - DATABASE_PASSWORD
+   - DATABASE_HOST=database
+   - NODE_ENV=production
+   - SECRET
+   - NEXT_PUBLIC_API_ENDPOINT
+  ports:
+   - "${PORT}:3000"
+  restart: always

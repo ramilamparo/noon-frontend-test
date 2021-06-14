@@ -17,7 +17,9 @@ const configs: Record<string, Config> = {
 			user: process.env.DATABASE_USER,
 			password: process.env.DATABASE_PASSWORD,
 			host: process.env.DATABASE_HOST,
-			port: Number(process.env.DATABASE_PORT),
+			port: process.env.DATABASE_PORT
+				? Number(process.env.DATABASE_PORT)
+				: undefined,
 		},
 		pool: {
 			min: 2,

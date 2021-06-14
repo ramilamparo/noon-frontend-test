@@ -30,6 +30,12 @@ npm run migrate:prod # Generates postgres database.
 npm run start
 ```
 
+To run in production mode using docker,
+
+Run the script in the project root directory.
+
+`./build --db-pass postgres --db-user postgres --db-name noon-test --port 80 --secret my_secret_ --next-api-endpoint my-website.example.com`
+
 # Required environment variables
 
 You can create a .env in the root project directory and create the following records.
