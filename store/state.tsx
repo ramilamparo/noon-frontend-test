@@ -10,16 +10,27 @@ export type PostsState = PostResponseApiData[] | null;
 
 export type AuthState = boolean | null;
 
+export type AlertType = "INFO" | "WARN" | "ERROR" | "SUCCESS";
+
+export interface AlertAttributes {
+	id: string;
+	message: string;
+	expiry?: number;
+	type: AlertType;
+}
+
 export interface StoreState {
 	posts: PostsState;
 	auth: AuthState;
 	favoritePosts: PostsState;
+	alerts: AlertAttributes[];
 }
 
 export const INITIAL_STATE: StoreState = {
 	posts: null,
 	favoritePosts: null,
 	auth: null,
+	alerts: [],
 };
 
 export const initializeStore = (preloadedState?: StoreState) => {

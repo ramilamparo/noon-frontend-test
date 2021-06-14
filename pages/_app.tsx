@@ -7,6 +7,7 @@ import { initializeStore, StoreState, useStore } from "store/state";
 import { NavBar } from "../components/container/NavBar";
 import { Post as PostApi } from "@utils/client/api/Post";
 import { Post as PostAction } from "store/actions/Post";
+import { SnackbarPortal } from "components/utils/SnackbarPortal";
 
 export interface AppProps {
 	Component: ComponentType<unknown>;
@@ -35,6 +36,7 @@ const App = ({ Component, pageProps, initialReduxState }: AppProps) => {
 				<ThemeProvider>
 					<NavBar />
 					<Component {...pageProps} />
+					<SnackbarPortal />
 				</ThemeProvider>
 			</Provider>
 		</>
