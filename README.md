@@ -71,7 +71,7 @@ The RESTful is integrated within the same codebase as NextJS.
 
 ### `POST /api/auth/login`
 
-Once logged in, the server responds with a `set-cookie` header that will be used for identifying the user.
+Once logged in, the server responds with a JWT that will be used for identifying the user.
 
 User needs to be signed up first before logging in.
 
@@ -88,8 +88,9 @@ User needs to be signed up first before logging in.
 
 ```json
 {
-	"success": true, // or false, if incorrect password.
-	"message": "Successfully logged in." // Additional details.
+	"success": true,
+	"message": "Successfully logged in.",
+	"data": "<JWT_TOKEN>"
 }
 ```
 
@@ -112,8 +113,8 @@ Signs up the user with the provided username, and password.
 
 ```json
 {
-	"success": true, // or false, if something goes wrong...
-	"message": "Successfully signed up." // Additional details.
+	"success": true,
+	"message": "Successfully signed up."
 }
 ```
 
@@ -125,8 +126,8 @@ _NONE_
 
 ```json
 {
-	"success": true, // or false, if something goes wrong...
-	"message": "Successfully logged out." // Additional details.
+	"success": true,
+	"message": "Successfully logged out."
 }
 ```
 
