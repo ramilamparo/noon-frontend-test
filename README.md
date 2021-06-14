@@ -69,7 +69,7 @@ The RESTful is integrated within the same codebase as NextJS.
 - sqlite is used as a database in dev mode, postgres in prod.
 - ObjectionJS as an ORM
 
-### `POST /auth/login`
+### `POST /api/auth/login`
 
 Once logged in, the server responds with a `set-cookie` header that will be used for identifying the user.
 
@@ -93,7 +93,7 @@ User needs to be signed up first before logging in.
 }
 ```
 
-### `POST /auth/signup`
+### `POST /api/auth/signup`
 
 Signs up the user with the provided username, and password.
 
@@ -117,10 +117,6 @@ Signs up the user with the provided username, and password.
 }
 ```
 
-### `POST /auth/logout`
-
-Invalidates the cookie server-side. Disabling access from `/me/*` routes.
-
 #### Body
 
 _NONE_
@@ -136,7 +132,7 @@ _NONE_
 
 ## Posts API
 
-### `GET /posts`
+### `GET /api/posts`
 
 Get all posts.
 
@@ -158,7 +154,7 @@ Get all posts.
 }
 ```
 
-### `POST /posts`
+### `POST /api/posts`
 
 > **WARNING**: To protect this app from illegal images, I decided to only allow images hosted on unsplash.org.
 
@@ -264,6 +260,23 @@ Deletes post from user favorites.
 ## Home page
 
 Shows the last 100 posts.
+
+How to create a post:
+
+- Create an account
+- Login with the account
+- Go to the home page
+- Fill in the title, image link, and description for the post.
+- Submit!
+
+> **NOTE:** Please only use image links hosted on images.unsplash.com
+> I made this decision to stop users from posting undesirable images.
+
+To get a link for an image in,
+
+- Go to unsplash.com
+- Right click on the image.
+- Select ‘Copy Image Link’
 
 ## Favorites Page
 
