@@ -10,6 +10,9 @@ const Container = styled.div`
 	position: fixed;
 	top: 50%;
 	left: 50%;
+	width: 100%;
+	padding: 1rem;
+	max-width: 50rem;
 	transform: translate(-50%, -50%);
 `;
 

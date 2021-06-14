@@ -4,8 +4,10 @@ import { useAuth } from "components/hooks/useAuth";
 import styled from "styled-components";
 
 const Container = styled.div`
-	width: 50rem;
+	width: 100%;
+	max-width: 50rem;
 	margin: auto;
+	padding: 0 1rem;
 `;
 
 const StyledPostCreateForm = styled(PostCreateForm)`
