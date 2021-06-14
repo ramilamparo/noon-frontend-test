@@ -4,10 +4,9 @@ import { Provider } from "react-redux";
 import { GlobalStyles } from "components/utils/GlobalStyles";
 import { ThemeProvider } from "components/utils/Theme";
 import { initializeStore, StoreState, useStore } from "store/state";
-import { NavBar } from "../components/container/NavBar";
 import { Post as PostApi } from "@utils/client/api/Post";
 import { Post as PostAction } from "store/actions/Post";
-import { SnackbarPortal } from "components/utils/SnackbarPortal";
+import { AppContainer } from "components/utils/AppContainer";
 
 export interface AppProps {
 	Component: ComponentType<unknown>;
@@ -34,9 +33,9 @@ const App = ({ Component, pageProps, initialReduxState }: AppProps) => {
 			<GlobalStyles />
 			<Provider store={reduxStore}>
 				<ThemeProvider>
-					<NavBar />
-					<Component {...pageProps} />
-					<SnackbarPortal />
+					<AppContainer>
+						<Component {...pageProps} />
+					</AppContainer>
 				</ThemeProvider>
 			</Provider>
 		</>

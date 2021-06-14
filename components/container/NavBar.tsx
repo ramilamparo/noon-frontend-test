@@ -3,7 +3,11 @@ import { LinksMap } from "@presentational/NavBar/NavBarLinks";
 import { useAuth } from "components/hooks/useAuth";
 import { useMemo } from "react";
 
-export const NavBar = () => {
+export interface NavBarProps {
+	className?: string;
+}
+
+export const NavBar = ({ className }: NavBarProps) => {
 	const { isLoggedIn, logout } = useAuth();
 
 	const links = useMemo(() => {
@@ -21,5 +25,11 @@ export const NavBar = () => {
 		return links;
 	}, [isLoggedIn, logout]);
 
-	return <NavBarPresentational logo="/static/react-logo.png" links={links} />;
+	return (
+		<NavBarPresentational
+			logo="/static/react-logo.png"
+			className={className}
+			links={links}
+		/>
+	);
 };
