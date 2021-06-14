@@ -1,11 +1,4 @@
-if (typeof window !== "undefined") {
-	throw new Error("Do not expose these secrets in the BROWSER!!!");
-}
+import config from "knexfile";
 
-const { SECRET } = process.env;
-
-if (!SECRET) {
-	throw new Error("SECRET is undefined");
-}
-
-export const secret = SECRET;
+export const secret = process.env.SECRET || "Default_Secret!";
+export const knexConfig = config[process.env.NODE_ENV];

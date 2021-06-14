@@ -1,3 +1,4 @@
+import { InvalidParamsException } from "@exceptions/InvalidParamsException";
 import { User } from "models/User";
 import { AuthJwt } from "../AuthJwt";
 import { Bcrypt } from "../Bcrypt";
@@ -28,9 +29,13 @@ export class AuthService {
 
 	public static async signup(username: string, password: string) {
 		const validated = UserSignupDto.verify({ username, password });
-		await User.query().insert({
-			username: validated.username,
-			password: await Bcrypt.hashPassword(validated.password),
-		});
+		try {
+			await User.query().insert({
+				username: validated.username,
+				password: await Bcrypt.hashPassword(validated.password),
+			});
+		} catch (e) {
+			throw new InvalidParamsException("User already exists.");
+		}
 	}
 }

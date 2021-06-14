@@ -25,7 +25,7 @@ const getAllPostsHandler: NextRequestHandlerFunction = async (req, res) => {
 		return res.status(200).json(response);
 	} catch (e) {
 		const response: ServerResponseMeta = {
-			message: "Unknown Error",
+			message: e.message,
 			success: false,
 		};
 		return res.status(500).json(response);

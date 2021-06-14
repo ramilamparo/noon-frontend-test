@@ -1,8 +1,8 @@
 import Knex from "knex";
 import { Model as ObjectionModel } from "objection";
-import config from "knexfile";
+import { knexConfig } from "config/server";
 
-const knex = Knex(config[process.env.NODE_ENV]);
+const knex = Knex(knexConfig);
 
 export abstract class BaseModel extends ObjectionModel {
 	public $beforeInsert() {

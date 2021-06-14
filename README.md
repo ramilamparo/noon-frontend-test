@@ -16,17 +16,40 @@
 To run in development mode, use:
 
 ```bash
-npm run dev
-# or
-yarn dev
+npm install # Installs dependencies
+npm run migrate:dev # Generates sqlite database.
+npm run dev # Runs app in development mode.
+```
+
+To run in production mode, use:
+
+```bash
+npm install # Installs dependencies
+npm run build
+npm run migrate:prod # Generates postgres database.
+npm run start
 ```
 
 # Required environment variables
 
 You can create a .env in the root project directory and create the following records.
 
+In development mode use:
+
 ```
-SECRET=Your_Secret_Key_To_Encrypt_Password
+SECRET=my_secret_
+NEXT_PUBLIC_API_ENDPOINT=http://localhost:3000
+```
+
+In production mode use:
+
+```
+SECRET=my_secret_
+NEXT_PUBLIC_API_ENDPOINT=mywebsite.example.com
+DATABASE_NAME=noon-test
+DATABASE_USER=postgres
+DATABASE_PASSWORD=my_password
+DATABASE_HOST=psql.example.com
 ```
 
 # The backend API
@@ -37,7 +60,7 @@ The RESTful is integrated within the same codebase as NextJS.
 
 - JWT used for authentication token. The token must be used in each request as a header to identify the user. `Authorization: Bearer <token>`
 - Passwords are encrypted in Bcrypt.
-- sqlite is used as a database, so don't expect your user data to persist after a few days!
+- sqlite is used as a database in dev mode, postgres in prod.
 - ObjectionJS as an ORM
 
 ### `POST /auth/login`
