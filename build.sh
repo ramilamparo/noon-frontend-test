@@ -65,7 +65,6 @@ export DATABASE_NAME="$db_name"
 
 export PORT="$port"
 export SECRET="$secret"
-export NEXT_PUBLIC_API_ENDPOINT="$next_api_endpoint"
 
-docker-compose build
+docker-compose build --build-arg NEXT_PUBLIC_API_ENDPOINT="$next_api_endpoint"
 docker-compose up -d

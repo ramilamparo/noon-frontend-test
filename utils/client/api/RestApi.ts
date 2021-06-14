@@ -1,14 +1,14 @@
 import { ServerResponse, ServerResponseMeta } from "@typings";
 import { JwtAuthStorage } from "@utils/client/JwtStorage";
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
-import { getEnv } from "config/client";
+import { apiEndpoint } from "config/client";
 import { RestApiError } from "./RestApiError";
 
 export class RestApi {
 	private constructor(private baseUrl: string, private axios: AxiosInstance) {}
 
 	public static create(baseUrl: string = "") {
-		return new RestApi(getEnv().apiEndpoint + baseUrl, axios.create());
+		return new RestApi(apiEndpoint + baseUrl, axios.create());
 	}
 
 	public static createWithAuthToken(baseUrl: string, token?: string) {
