@@ -3,6 +3,7 @@ import {
 	SignUpFormValues,
 } from "@presentational/Forms/SignUpForm";
 import { useAuth } from "components/hooks/useAuth";
+import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 import { useFormState } from "react-form";
 
@@ -16,12 +17,14 @@ export const SignUpForm = () => {
 
 	const auth = useAuth();
 	const [loading, setLoading] = useState(false);
+	const router = useRouter();
 
 	const onSubmit = useCallback(async () => {
 		setLoading(true);
 		await auth.signup(form.values.username, form.values.password);
+		router.push("/login");
 		setLoading(true);
-	}, [form.values, auth]);
+	}, [form.values, auth, router]);
 
 	return (
 		<SignUpFormPresentational

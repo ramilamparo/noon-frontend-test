@@ -8,7 +8,7 @@ export const NavBar = () => {
 
 	const links = useMemo(() => {
 		const links: LinksMap = {};
-		if (isLoggedIn) {
+		if (isLoggedIn === true) {
 			links["Home"] = "/";
 			links["My Favorites"] = "/me/favorites";
 			links["Logout"] = logout;

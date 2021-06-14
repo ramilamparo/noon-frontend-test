@@ -12,7 +12,7 @@ export const PostList = () => {
 			<PostListPresentational
 				posts={posts.data}
 				onFavorite={posts.toggleFavoritePost}
-				isLoggedIn={auth.isLoggedIn}
+				isLoggedIn={auth.isLoggedIn === true}
 				isPostFavorite={posts.checkIfPostIsFavorited}
 			/>
 		);
