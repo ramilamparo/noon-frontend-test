@@ -48,3 +48,15 @@ export type ObjectDatePropertiesToUnixTimestamp<T extends {}> = {
 export type DateToUnixTimestamp<T> = T extends Date
 	? number | Exclude<T, Date>
 	: T;
+
+export interface UserSignupAttributes {
+	username: string;
+	password: string;
+}
+
+export interface PostCreateAttributes {
+	title: string;
+	description: string;
+	authorId: number;
+	imageSrc: string;
+}

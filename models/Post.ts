@@ -2,12 +2,6 @@ import { BaseModel } from "./BaseModel";
 import { RelationMappings } from "objection";
 import { User } from "./User";
 
-export interface PostCreateAttributes {
-	title: string;
-	description: string;
-	authorId: number;
-}
-
 export interface PostAttributes {
 	id: number;
 	title: string;

@@ -2,6 +2,7 @@ import { getUnixTime } from "date-fns";
 import { HasId, PostResponseApiData } from "@typings";
 import { Post } from "models/Post";
 import { User } from "models/User";
+import { PostCreateDto } from "../dto/PostCreate.dto";
 
 export interface PostCreateParams {
 	authorId: number;
@@ -61,12 +62,7 @@ export class PostService {
 	public static async create(
 		post: PostCreateParams
 	): Promise<PostResponseApiData> {
-		const createdPost = await Post.query().insert({
-			title: post.title,
-			description: post.description,
-			authorId: post.authorId,
-			imageSrc: post.imageSrc,
-		});
+		const createdPost = await Post.query().insert(PostCreateDto.verify(post));
 		return {
 			description: createdPost.description,
 			favoriteCount: 0,

@@ -46,9 +46,8 @@ const createPostHanlder: NextRequestHandlerFunction = async (req, res, ctx) => {
 			};
 			return res.status(200).json(response);
 		} catch (e) {
-			console.log(e);
 			const response: ServerResponseMeta = {
-				message: "Invalid parameters.",
+				message: e.message,
 				success: false,
 			};
 			return res.status(422).json(response);

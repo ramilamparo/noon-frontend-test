@@ -20,7 +20,7 @@ const postHandler: NextRequestHandlerFunction = async (req, res) => {
 		return res.status(200).json(response);
 	} catch (e) {
 		const response: ServerResponseMeta = {
-			message: "Cannot sign up, try using another username?",
+			message: e.message,
 			success: false,
 		};
 		return res.status(403).json(response);
