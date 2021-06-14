@@ -14,7 +14,6 @@ export default function Favorites() {
 	const router = useRouter();
 
 	useEffect(() => {
-		console.log(auth.isLoggedIn);
 		if (auth.isLoggedIn === false) {
 			router.replace("/login");
 		}
