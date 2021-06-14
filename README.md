@@ -62,12 +62,12 @@ DATABASE_HOST=psql.example.com
 
 The RESTful is integrated within the same codebase as NextJS.
 
-## Authentication API
-
 - JWT used for authentication token. The token must be used in each request as a header to identify the user. `Authorization: Bearer <token>`
 - Passwords are encrypted in Bcrypt.
 - sqlite is used as a database in dev mode, postgres in prod.
 - ObjectionJS as an ORM
+
+## Authentication API
 
 ### `POST /api/auth/login`
 
