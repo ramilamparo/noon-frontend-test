@@ -32,11 +32,13 @@ export const PostCreateForm = ({ className }: PostCreateFormProps) => {
 			alerts.createAlert({
 				message: "Post created!",
 				type: "SUCCESS",
+				expiry: 5000,
 			});
 		} catch (e) {
 			alerts.createAlert({
 				message: e.message,
 				type: "ERROR",
+				expiry: 5000,
 			});
 		} finally {
 			setLoading(false);
